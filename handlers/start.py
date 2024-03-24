@@ -2,7 +2,6 @@ from aiogram import Router, F, types
 from aiogram.filters import Command
 import logging
 
-from keyboards.all_keyboards import start_kb
 
 
 start_router = Router()
@@ -11,7 +10,8 @@ start_router = Router()
 @start_router.message(Command("start"))
 async def start(message: types.Message):
     logging.info(message.from_user)
-    await message.answer(f"Hello, {message.from_user.first_name}", reply_markup=start_kb())
+    await message.answer(f"Hello, {message.from_user.first_name}\n"
+                         f"/scrap - парсинг",)
 
 
 @start_router.callback_query(F.data == "about")
