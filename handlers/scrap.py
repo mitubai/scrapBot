@@ -1,6 +1,6 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
-from crawler.animespirit import AnimeSpiritCrawler
+from crawler.animespirit import AnimeCrawler
 
 scrap_router = Router()
 
@@ -16,12 +16,11 @@ async def make_order(message: types.Message):
     )
     await message.answer('Хотите начать?', reply_markup=kb)
 
-
 @scrap_router.callback_query(F.data == 'scrap')
 async def scrap(callback: types.CallbackQuery):
-    crawler = AnimeSpiritCrawler()
-    crawler.get_anime()
-    animes = crawler.get_anime_links()
+    crawler = AnimeCrawler()
+    animes = await crawler.get_anime_data()
     for anime in animes:
         await callback.message.answer(anime)
+
 
